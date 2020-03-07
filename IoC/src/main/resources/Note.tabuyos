@@ -1,0 +1,25 @@
+模拟Spring
+注入， 通常是有两种方式来实现的， 分别是Setter和Constructor， 在使用Setter的时候， 通常他们的关系是， 通过方法名称来实现的， 例如dao对应的方法是setDao， 即除了set的子字符串来标识
+
+getDeclareField和getField的区别？
+
+手动装配高于自动装配
+
+FactoryBean 是一个Bean， BeanFactory 是一个工厂， 用来生产Bean的， 本身不是一个Bean
+
+为什么我们需要去初始化spring环境 ---> 把我们交给spring的类进行实例化
+
+xml         类的扫描    单独bean的注册（包含声明和注册）
+annotation  单独bean的注册
+JavaConfiguration   类扫描
+
+
+com.tabuyos.spring 初始化环境的方法有：
+    ClassPathXmlApplicationContext
+    AnnotationConfigApplicationContext
+
+ioc
+    不去关心具体的对象实现， 而去注重编码
+
+我们为什么要自定义FactoryBean？
+    类非常复杂， 例如有二十几个属性，那么这个时候不能有程序员去维护这个， 所以应该由FactoryBean来维护

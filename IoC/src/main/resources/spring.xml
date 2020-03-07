@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans autowired="byType">
+    <bean id="userDao" class="com.tabuyos.com.tabuyos.spring.dao.UserDaoImpl"/>
+    <bean id="userDao1" class="com.tabuyos.com.tabuyos.spring.dao.UserDaoImpl1"/>
+    <bean id="indexDao" class="com.tabuyos.com.tabuyos.spring.dao.IndexDaoImpl"/>
+    <bean id="indexDao1" class="com.tabuyos.com.tabuyos.spring.dao.IndexDaoImpl1"/>
+    <bean id="userService" class="com.tabuyos.com.tabuyos.spring.service.UserServiceImpl">
+        <property name="indexDao" ref="indexDao1">
+
+        </property>
+    </bean>
+</beans>

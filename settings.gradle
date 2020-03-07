@@ -1,0 +1,3 @@
+rootProject.name = 'tabuyos-spring'
+include 'IoC'
+
