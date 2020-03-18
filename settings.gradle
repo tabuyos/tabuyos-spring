@@ -1,4 +1,5 @@
 rootProject.name = 'tabuyos-spring'
 include 'IoC'
 include 'AOP'
+include 'MVC'
 
