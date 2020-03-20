@@ -1,11 +1,13 @@
 group 'com.tabuyos.spring'
 version '0.1.0'
 
-repositories {
-    maven {
-        url 'https://maven.aliyun.com/repository/public'
-        name 'AliyunPublic'
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+            name 'AliyunPublic'
+        }
+        mavenLocal()
+        mavenCentral()
     }
-    mavenLocal()
-    mavenCentral()
 }
