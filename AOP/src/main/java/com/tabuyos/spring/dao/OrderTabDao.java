@@ -11,5 +11,5 @@ public interface OrderTabDao {
 
     void update(String sql);
 
-    void updateProduct(String sql);
+    String updateProduct(String sql);
 }

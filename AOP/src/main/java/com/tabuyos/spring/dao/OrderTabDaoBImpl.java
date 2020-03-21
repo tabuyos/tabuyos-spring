@@ -18,7 +18,7 @@ public class OrderTabDaoBImpl implements OrderTabDao {
     }
 
     @Override
-    public void updateProduct(String sql) {
-
+    public String updateProduct(String sql) {
+        return null;
     }
 }

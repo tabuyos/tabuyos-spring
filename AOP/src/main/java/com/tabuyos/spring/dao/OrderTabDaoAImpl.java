@@ -18,7 +18,8 @@ public class OrderTabDaoAImpl implements OrderTabDao {
     }
 
     @Override
-    public void updateProduct(String sql) {
-
+    public String updateProduct(String sql) {
+        System.out.println(sql);
+        return "Successful";
     }
 }

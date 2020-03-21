@@ -18,5 +18,7 @@ public class Test {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Appconfig.class);
 //        ac.getBean(OrderTabDao.class).update("sql");
         ac.getBean(OrderTabServiceImpl.class).query("A");
+        System.out.println("==============================Tabuyos-Separator==============================");
+        ac.getBean(OrderTabServiceImpl.class).updateProduct("Hello");
     }
 }

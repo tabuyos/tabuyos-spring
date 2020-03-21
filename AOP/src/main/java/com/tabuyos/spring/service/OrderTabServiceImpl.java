@@ -37,7 +37,11 @@ public class OrderTabServiceImpl implements ApplicationContextAware {
         }
 //        orderTabDao.update(username);
     }
+    public void updateProduct(String username) {
+        applicationContext.getBean(OrderTabDaoAImpl.class).updateProduct(username);
+    }
 
+    // hipnote 通过实现ApplicationContextAware接口, 使用setter方法对应用上下文进行自动注入
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
