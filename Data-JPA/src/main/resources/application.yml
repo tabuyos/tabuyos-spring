@@ -1,0 +1,66 @@
+server:
+  # 设置应用端口
+  port: 8080
+  servlet:
+    # 设置应用上下文路径
+    context-path: /
+spring:
+  # 配置数据源
+  datasource:
+    primary:
+      # 数据库连接字符串
+      # 使用本地数据库
+      jdbc-url: jdbc:mariadb://localhost:3306/primarydb?useUnicode=true&characterEncoding=utf8
+      # 使用远程数据库
+#      url: jdbc:mariadb://192.168.22.21:3306/vers?useUnicode=true&characterEncoding=utf8
+      # 设置账户
+      username: primaryuser
+      # 设置密码
+      password: primary
+      # 指定数据库连接驱动
+      driver-class-name: org.mariadb.jdbc.Driver
+      # 需要执行的SQL文件
+      schema: classpath:crebas.sql
+      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
+      # 请勿随意修改该配置!
+      initialization-mode: never
+    secondary:
+      # 数据库连接字符串
+      # 使用本地数据库
+#      url: jdbc:mariadb://localhost:3306/vers?useUnicode=true&characterEncoding=utf8
+      # 使用远程数据库
+      jdbc-url: jdbc:mariadb://localhost:3306/secondarydb?useUnicode=true&characterEncoding=utf8
+      # 设置账户
+      username: secondaryuser
+      # 设置密码
+      password: secondary
+      # 指定数据库连接驱动
+      driver-class-name: org.mariadb.jdbc.Driver
+      # 需要执行的SQL文件
+      schema: classpath:crebas.sql
+      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
+      # 请勿随意修改该配置!
+      initialization-mode: never
+  jpa:
+    # 配置数据库类型
+    database: mysql
+    hibernate:
+      # 配置ddl
+      ddl-auto: none
+    properties:
+      hibernate:
+        # 配置Dialect
+#        dialect: com.vip.vers.config.MariaDBConfig
+    open-in-view: true
+logging:
+  level:
+    org:
+      # 日志输出级别
+      hibernate: error
+      springframework:
+        web: error
+  file:
+    # 日志文件存放位置, 保存时间, 大小
+    path: ./logs
+    max-history: 7
+    max-size: 10MB
