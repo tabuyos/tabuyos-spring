@@ -23,20 +23,20 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "primaryDataSource")
-    @Qualifier("primaryDataSource")
-    @Primary
-    @ConfigurationProperties(prefix="spring.datasource.primary")
-    public DataSource primaryDataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean(name = "secondaryDataSource")
-    @Qualifier("secondaryDataSource")
-    @ConfigurationProperties(prefix="spring.datasource.secondary")
-    public DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().build();
-    }
+//    @Bean(name = "primaryDataSource")
+//    @Qualifier("primaryDataSource")
+//    @Primary
+//    @ConfigurationProperties(prefix="spring.datasource.primary")
+//    public DataSource primaryDataSource() {
+//        return DataSourceBuilder.create().build();
+//    }
+//
+//    @Bean(name = "secondaryDataSource")
+//    @Qualifier("secondaryDataSource")
+//    @ConfigurationProperties(prefix="spring.datasource.secondary")
+//    public DataSource secondaryDataSource() {
+//        return DataSourceBuilder.create().build();
+//    }
 
 //    @Bean(name = "primaryDataSource")
 //    @Qualifier("primaryDataSource")
@@ -61,32 +61,32 @@ public class DataSourceConfig {
 //        return dataSource;
 //    }
 
-//    @Bean(name = "primaryDataSourceProperties")
-//    @Qualifier("primaryDataSourceProperties")
-//    @Primary
-//    @ConfigurationProperties("spring.datasource.primary")
-//    public DataSourceProperties primaryDataSourceProperties() {
-//        return new DataSourceProperties();
-//    }
-//
-//    @Bean(name = "secondaryDataSourceProperties")
-//    @Qualifier("secondaryDataSourceProperties")
-//    @ConfigurationProperties("spring.datasource.secondary")
-//    public DataSourceProperties secondaryDataSourceProperties() {
-//        return new DataSourceProperties();
-//    }
-//
-//    @Bean(name = "primaryDataSource")
-//    @Qualifier("primaryDataSource")
-//    @Primary
-//    public DataSource primaryDataSource() {
-//        return primaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
-//    }
-//
-//    @Bean(name = "secondaryDataSource")
-//    @Qualifier("secondaryDataSource")
-//    public DataSource secondaryDataSource() {
-//        return secondaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
-//    }
+    @Bean(name = "primaryDataSourceProperties")
+    @Qualifier("primaryDataSourceProperties")
+    @Primary
+    @ConfigurationProperties("spring.datasource.primary")
+    public DataSourceProperties primaryDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean(name = "secondaryDataSourceProperties")
+    @Qualifier("secondaryDataSourceProperties")
+    @ConfigurationProperties("spring.datasource.secondary")
+    public DataSourceProperties secondaryDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean(name = "primaryDataSource")
+    @Qualifier("primaryDataSource")
+    @Primary
+    public DataSource primaryDataSource() {
+        return primaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
+    }
+
+    @Bean(name = "secondaryDataSource")
+    @Qualifier("secondaryDataSource")
+    public DataSource secondaryDataSource() {
+        return secondaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
+    }
 
 }
