@@ -1,5 +1,6 @@
 package com.tabuyos.jpa.config;
 
+import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -58,6 +59,34 @@ public class DataSourceConfig {
 //        dataSource.setUsername("secondaryuser");
 //        dataSource.setPassword("secondary");
 //        return dataSource;
+//    }
+
+//    @Bean(name = "primaryDataSourceProperties")
+//    @Qualifier("primaryDataSourceProperties")
+//    @Primary
+//    @ConfigurationProperties("spring.datasource.primary")
+//    public DataSourceProperties primaryDataSourceProperties() {
+//        return new DataSourceProperties();
+//    }
+//
+//    @Bean(name = "secondaryDataSourceProperties")
+//    @Qualifier("secondaryDataSourceProperties")
+//    @ConfigurationProperties("spring.datasource.secondary")
+//    public DataSourceProperties secondaryDataSourceProperties() {
+//        return new DataSourceProperties();
+//    }
+//
+//    @Bean(name = "primaryDataSource")
+//    @Qualifier("primaryDataSource")
+//    @Primary
+//    public DataSource primaryDataSource() {
+//        return primaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
+//    }
+//
+//    @Bean(name = "secondaryDataSource")
+//    @Qualifier("secondaryDataSource")
+//    public DataSource secondaryDataSource() {
+//        return secondaryDataSourceProperties().initializeDataSourceBuilder().type(MariaDbDataSource.class).build();
 //    }
 
 }

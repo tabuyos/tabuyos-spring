@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.primary.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.url."
+    },
+    {
+      "name": "spring.datasource.primary.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.username."
+    },
+    {
+      "name": "spring.datasource.primary.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.password."
+    },
+    {
+      "name": "spring.datasource.primary.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.driver-class-name."
+    },
+    {
+      "name": "spring.datasource.primary.schema",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.schema."
+    },
+    {
+      "name": "spring.datasource.primary.initialization-mode",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.initialization-mode."
+    }
+  ] }

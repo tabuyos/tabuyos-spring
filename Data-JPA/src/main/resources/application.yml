@@ -23,6 +23,7 @@ spring:
       schema: classpath:crebas.sql
       # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
       # 请勿随意修改该配置!
+      # 多个数据源时, 只有第一个数据源(被@Primary注解的DataSource)会被初始化, 其他的数据源即使设置为always也不会进行初始化
       initialization-mode: never
     secondary:
       # 数据库连接字符串
@@ -45,13 +46,14 @@ spring:
     # 配置数据库类型
     database: mysql
     hibernate:
-      # 配置ddl
-      ddl-auto: none
+      # 配置ddl, 所有的数据源均会初始化
+      ddl-auto: create
     properties:
       hibernate:
         # 配置Dialect
 #        dialect: com.vip.vers.config.MariaDBConfig
     open-in-view: true
+    show-sql: true
 logging:
   level:
     org:
