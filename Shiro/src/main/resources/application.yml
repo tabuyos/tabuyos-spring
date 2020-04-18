@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: Shiro
+  datasource:
+    url: jdbc:mariadb://localhost:3306/shiro?useUnicode=true&characterEncoding=utf8
+    username: tabuyos
+    password: tabuyos
+    driver-class-name: org.mariadb.jdbc.Driver
