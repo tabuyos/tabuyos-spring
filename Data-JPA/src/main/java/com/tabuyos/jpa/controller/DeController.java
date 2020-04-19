@@ -1,7 +1,7 @@
 package com.tabuyos.jpa.controller;
 
-import com.tabuyos.jpa.rep.UserRepository;
-import com.tabuyos.jpa.rep2.UserRepository2;
+import com.tabuyos.jpa.service.UserService;
+import com.tabuyos.jpa.service.impl.UserServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class DeController {
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public DeController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public DeController(UserServiceImpl userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/default")
     public void secondary() {
-        System.out.println(userRepository.getObject().toString());
+        System.out.println(userService.getObject().toString());
     }
 }

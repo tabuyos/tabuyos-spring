@@ -1,6 +1,8 @@
 package com.tabuyos.shiro.config;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * @Author Tabuyos
@@ -10,5 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description
  */
 @Configuration
+@EnableJpaRepositories(basePackages = { "com.tabuyos.shiro.dao" })
+@EntityScan(basePackages = { "com.tabuyos.shiro.entity" })
 public class ShiroConfig {
 }

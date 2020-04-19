@@ -1,0 +1,167 @@
+Configuration:
+  status: warn
+  name: YAMLConfigTest
+  properties:
+    property:
+      - name: log.level.console
+        value: info
+      - name: log.path
+        value: log
+      - name: project.name
+        value: opendoc
+      - name: log.pattern
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+      - name: filename
+        value: "target/tabuyos.log"
+      - name: LOG_EXCEPTION_CONVERSION_WORD
+        value: "%xwEx"
+      - name: LOG_LEVEL_PATTERN
+        value: "%5p"
+      - name: LOG_DATEFORMAT_PATTERN
+        value: "yyyy-MM-dd HH:mm:ss.SSS"
+      - name: FILE_LOG_PATTERN
+        value: "%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+      - name: CONSOLE_LOG_PATTERN
+        value: "%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40C{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+  thresholdFilter:
+    level: debug
+  appenders:
+    Console:
+      name: Console
+      PatternLayout:
+#        Pattern: "%highlight{[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n}{FATAL=red, ERROR=magenta, WARN=yellow, INFO=green, DEBUG=blue, TRACE=cyan}"
+#        Pattern: ${log.pattern}
+        Pattern: ${sys:CONSOLE_LOG_PATTERN}
+    File:
+      name: File
+      fileName: ${filename}
+      append: true
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: INFO
+    RollingFile:
+      - name: ROLLING_FILE
+        fileName: ${log.path}/${project.name}.log
+        filePattern: "${log.path}/historyRunLog/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Filters:
+          #        一定要先去除不接受的日志级别，然后获取需要接受的日志级别
+          ThresholdFilter:
+            - level: error
+              onMatch: DENY
+              onMismatch: NEUTRAL
+            - level: info
+              onMatch: ACCEPT
+              onMismatch: DENY
+        Policies:
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:     # 文件最多100个
+          max: 100
+      #   平台日志
+      - name: PLATFORM_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/platform/${project.name}_platform.log
+        filePattern: "${log.path}/platform/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:     # 文件最多100个
+          max: 100
+      #   业务日志
+      - name: BUSSINESS_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/bussiness/${project.name}_bussiness.log
+        filePattern: "${log.path}/bussiness/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:     # 文件最多100个
+          max: 100
+      #   错误日志
+      - name: EXCEPTION_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/exception/${project.name}_exception.log
+        filePattern: "${log.path}/exception/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        ThresholdFilter:
+          level: error
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:     # 文件最多100个
+          max: 100
+      #   DB 日志
+      - name: DB_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/db/${project.name}_db.log
+        filePattern: "${log.path}/db/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:     # 文件最多100个
+          max: 100
+
+  Loggers:
+#    logger:
+#      - name: org.apache.logging.log4j.test1
+#        level: debug
+#        additivity: false
+#        ThreadContextMapFilter:
+#          KeyValuePair:
+#            key: test
+#            value: 123
+#        AppenderRef:
+#          ref: Console
+#      - name: com.tabuyos.shiro.controller
+#        level: debug
+#        additivity: false
+#        AppenderRef:
+#          ref: File
+    Logger:
+      - name: platform
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: Console
+          - ref: PLATFORM_ROLLING_FILE
+      - name: business
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: BUSSINESS_ROLLING_FILE
+      - name: exception
+        level: debug
+        additivity: true
+        AppenderRef:
+          - ref: EXCEPTION_ROLLING_FILE
+      - name: db
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: Console
+        - ref: File
+        - ref: ROLLING_FILE
+        - ref: EXCEPTION_ROLLING_FILE

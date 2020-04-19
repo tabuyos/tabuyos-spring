@@ -17,7 +17,7 @@ spring:
     properties:
       hibernate:
       # 配置Dialect
-        dialect: com.tabuyos.shiro.config.MariaDBConfig
+#        dialect: com.tabuyos.shiro.config.MariaDBConfig
     show-sql: true
     open-in-view: true
 #  output:

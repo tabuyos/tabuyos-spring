@@ -15,8 +15,7 @@ import java.math.BigInteger;
 public class UserRole {
     @Id
     @Column(name = "id", length = 36)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private String id;
 
     @Column(name = "user_id", length = 36)
     private String userId;

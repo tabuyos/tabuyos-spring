@@ -16,8 +16,7 @@ import java.sql.Timestamp;
 public class SysRole {
     @Id
     @Column(name = "id", length = 36)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private String id;
 
     @Column(name = "role_name")
     private String roleName;
@@ -34,6 +33,6 @@ public class SysRole {
     @Column(name = "update_time", columnDefinition = "datetime")
     private Timestamp updateTime;
 
-    @Column(name = "is_disable")
+    @Column(name = "is_disable", length = 1)
     private Integer isDisable;
 }

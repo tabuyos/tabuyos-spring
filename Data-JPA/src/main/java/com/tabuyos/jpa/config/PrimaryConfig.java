@@ -32,7 +32,7 @@ import java.util.Objects;
 @EnableJpaRepositories(
         entityManagerFactoryRef="entityManagerFactoryPrimary",
         transactionManagerRef="transactionManagerPrimary",
-        basePackages= { "com.tabuyos.jpa.rep","com.tabuyos.jpa.rep1" })
+        basePackages= { "com.tabuyos.jpa.rep1" })
 public class PrimaryConfig {
     private DataSource primaryDataSource;
     private JpaProperties jpaProperties;

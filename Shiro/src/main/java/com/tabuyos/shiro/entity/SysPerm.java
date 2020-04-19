@@ -16,8 +16,7 @@ import java.sql.Timestamp;
 public class SysPerm {
     @Id
     @Column(name = "id", length = 36)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private String id;
 
     @Column(name = "perm_name")
     private String permName;

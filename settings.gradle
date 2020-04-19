@@ -6,4 +6,5 @@ include 'Mybatis-Spring'
 include 'Mybatis'
 include 'Data-JPA'
 include 'Shiro'
+include 'Log4j2'
 

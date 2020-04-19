@@ -15,8 +15,7 @@ import java.math.BigInteger;
 public class RolePerm {
     @Id
     @Column(name = "id", length = 36)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private String id;
 
     @Column(name = "perm_id", length = 36)
     private String permId;

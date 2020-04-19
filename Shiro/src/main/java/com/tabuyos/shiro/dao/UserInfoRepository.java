@@ -1,6 +1,7 @@
-package com.tabuyos.jpa.rep;
+package com.tabuyos.shiro.dao;
 
-import com.tabuyos.jpa.entity.User;
+import com.tabuyos.shiro.entity.UserInfo;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,14 +11,14 @@ import java.util.List;
 
 /**
  * @Author Tabuyos
- * @Time 2020/4/16 23:51
+ * @Time 2020/4/19 11:46
  * @Site www.tabuyos.com
  * @Email tabuyos@outlook.com
  * @Description
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
-    @Query(value = "select * from user", nativeQuery =true)
-    @SuppressWarnings("unused")
-    List<User> getObject();
+public interface UserInfoRepository extends JpaRepository<UserInfo, String>, JpaSpecificationExecutor<UserInfo> {
+
+    @Query(value = "select * from user_info", nativeQuery =true)
+    List<UserInfo> findAll();
 }

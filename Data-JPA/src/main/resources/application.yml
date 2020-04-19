@@ -7,47 +7,60 @@ server:
 spring:
   # 配置数据源
   datasource:
-    primary:
-      # 数据库连接字符串
-      # 使用本地数据库
-      url: jdbc:mariadb://localhost:3306/primarydb?useUnicode=true&characterEncoding=utf8
-      # 使用远程数据库
-#      url: jdbc:mariadb://192.168.22.21:3306/vers?useUnicode=true&characterEncoding=utf8
-      # 设置账户
-      username: primaryuser
-      # 设置密码
-      password: primary
-      # 指定数据库连接驱动
-      driver-class-name: org.mariadb.jdbc.Driver
-      # 需要执行的SQL文件
-      schema: classpath:crebas.sql
-      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
-      # 请勿随意修改该配置!
-      # 多个数据源时, 只有第一个数据源(被@Primary注解的DataSource)会被初始化, 其他的数据源即使设置为always也不会进行初始化
-      initialization-mode: always
-    secondary:
-      # 数据库连接字符串
-      # 使用本地数据库
-#      url: jdbc:mariadb://localhost:3306/vers?useUnicode=true&characterEncoding=utf8
-      # 使用远程数据库
-      url: jdbc:mariadb://localhost:3306/secondarydb?useUnicode=true&characterEncoding=utf8
-      # 设置账户
-      username: secondaryuser
-      # 设置密码
-      password: secondary
-      # 指定数据库连接驱动
-      driver-class-name: org.mariadb.jdbc.Driver
-      # 需要执行的SQL文件
-      schema: classpath:crebas.sql
-      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
-      # 请勿随意修改该配置!
-      initialization-mode: always
+    # 数据库连接字符串
+    # 使用本地数据库
+    url: jdbc:mariadb://localhost:3306/primarydb?useUnicode=true&characterEncoding=utf8
+    # 使用远程数据库
+    #      url: jdbc:mariadb://192.168.22.21:3306/vers?useUnicode=true&characterEncoding=utf8
+    # 设置账户
+    username: primaryuser
+    # 设置密码
+    password: primary
+    # 指定数据库连接驱动
+    driver-class-name: org.mariadb.jdbc.Driver
+    schema: classpath:crebas.sql
+    initialization-mode: never
+#    primary:
+#      # 数据库连接字符串
+#      # 使用本地数据库
+#      url: jdbc:mariadb://localhost:3306/primarydb?useUnicode=true&characterEncoding=utf8
+#      # 使用远程数据库
+##      url: jdbc:mariadb://192.168.22.21:3306/vers?useUnicode=true&characterEncoding=utf8
+#      # 设置账户
+#      username: primaryuser
+#      # 设置密码
+#      password: primary
+#      # 指定数据库连接驱动
+#      driver-class-name: org.mariadb.jdbc.Driver
+#      # 需要执行的SQL文件
+#      schema: classpath:crebas.sql
+#      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
+#      # 请勿随意修改该配置!
+#      # 多个数据源时, 只有第一个数据源(被@Primary注解的DataSource)会被初始化, 其他的数据源即使设置为always也不会进行初始化
+#      initialization-mode: never
+#    secondary:
+#      # 数据库连接字符串
+#      # 使用本地数据库
+##      url: jdbc:mariadb://localhost:3306/vers?useUnicode=true&characterEncoding=utf8
+#      # 使用远程数据库
+#      url: jdbc:mariadb://localhost:3306/secondarydb?useUnicode=true&characterEncoding=utf8
+#      # 设置账户
+#      username: secondaryuser
+#      # 设置密码
+#      password: secondary
+#      # 指定数据库连接驱动
+#      driver-class-name: org.mariadb.jdbc.Driver
+#      # 需要执行的SQL文件
+#      schema: classpath:crebas.sql
+#      # always: 每次启动应用时会自动执行上述的SQL文件, 会导致数据初始化, never: 不会执行上述SQL文件.
+#      # 请勿随意修改该配置!
+#      initialization-mode: never
   jpa:
     # 配置数据库类型
     database: mysql
     hibernate:
       # 配置ddl, 所有的数据源均会初始化
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         # 配置Dialect
