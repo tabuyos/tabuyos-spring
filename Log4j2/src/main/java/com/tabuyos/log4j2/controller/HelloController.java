@@ -25,11 +25,11 @@ public class HelloController {
 
     @GetMapping("/hi")
     public String hello() {
-//        logger.trace("Trace log msg.");
-//        logger.debug("Debug log msg.");
-//        logger.info("Info log msg.");
-//        logger.warn("Warn log msg.");
-//        logger.error("Error log msg.");
+        logger.trace("Trace log msg.");
+        logger.debug("Debug log msg.");
+        logger.info("Info log msg.");
+        logger.warn("Warn log msg.");
+        logger.error("Error log msg.");
 
         loggerBusiness.trace("Business trace");
         loggerBusiness.debug("Business debug");

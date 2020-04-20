@@ -43,6 +43,9 @@ Configuration:
               onMatch: ACCEPT
               onMismatch: DENY
         Policies:
+          # 按大小分类
+          SizeBasedTriggeringPolicy:
+            size: 50MB
           # 按天分类
           TimeBasedTriggeringPolicy:
             modulate: true
@@ -58,6 +61,8 @@ Configuration:
         PatternLayout:
           pattern: ${sys:FILE_LOG_PATTERN}
         Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50MB
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
@@ -71,6 +76,8 @@ Configuration:
         PatternLayout:
           pattern: ${sys:FILE_LOG_PATTERN}
         Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50MB
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
@@ -88,6 +95,8 @@ Configuration:
         PatternLayout:
           pattern: ${sys:FILE_LOG_PATTERN}
         Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50MB
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
@@ -101,6 +110,8 @@ Configuration:
         PatternLayout:
           pattern: ${sys:FILE_LOG_PATTERN}
         Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50MB
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
