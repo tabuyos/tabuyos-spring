@@ -1,0 +1,12 @@
+2020-04-20 10:38:09.326  INFO 8152 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (48  line): DB info
+2020-04-20 10:38:09.326  WARN 8152 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (49  line): DB warn
+2020-04-20 10:38:09.326 ERROR 8152 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (50  line): DB error
+2020-04-20 10:40:19.710  INFO 19044 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (48  line): DB info
+2020-04-20 10:40:19.710  WARN 19044 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (49  line): DB warn
+2020-04-20 10:40:19.710 ERROR 19044 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (50  line): DB error
+2020-04-20 10:43:25.394  INFO 1532 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (48  line): DB info
+2020-04-20 10:43:25.394  WARN 1532 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (49  line): DB warn
+2020-04-20 10:43:25.394 ERROR 1532 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (50  line): DB error
+2020-04-20 11:11:04.885  INFO 3760 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (48  line): DB info
+2020-04-20 11:11:04.885  WARN 3760 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (49  line): DB warn
+2020-04-20 11:11:04.885 ERROR 3760 --- [http-nio-8080-exec-1] c.t.l.c.HelloController                  (50  line): DB error
