@@ -3,6 +3,7 @@
 bin
 out
 build
+logs
 .gradle
 .idea
 !.gitignore
