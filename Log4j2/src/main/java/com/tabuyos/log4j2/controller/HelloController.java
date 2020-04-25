@@ -31,10 +31,29 @@ public class HelloController {
         logger.warn("Warn log msg.");
         logger.error("Error log msg.");
 
-        loggerBusiness.info("Business");
-        loggerPlatform.info("Platform");
-        loggerDB.info("DB");
-        loggerException.error("Exception");
+        loggerBusiness.trace("Business trace");
+        loggerBusiness.debug("Business debug");
+        loggerBusiness.info("Business info");
+        loggerBusiness.warn("Business warn");
+        loggerBusiness.error("Business error");
+
+        loggerPlatform.trace("Platform trace");
+        loggerPlatform.debug("Platform debug");
+        loggerPlatform.info("Platform info");
+        loggerPlatform.warn("Platform warn");
+        loggerPlatform.error("Platform error");
+
+        loggerDB.trace("DB trace");
+        loggerDB.debug("DB debug");
+        loggerDB.info("DB info");
+        loggerDB.warn("DB warn");
+        loggerDB.error("DB error");
+
+        loggerException.trace("Exception trace");
+        loggerException.debug("Exception debug");
+        loggerException.info("Exception info");
+        loggerException.warn("Exception warn");
+        loggerException.error("Exception error");
 
         return "Hello, Tabuyos";
     }
