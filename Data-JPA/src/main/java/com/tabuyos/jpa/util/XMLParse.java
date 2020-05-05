@@ -1,7 +1,7 @@
 package com.tabuyos.jpa.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vip.vers.entity.examination.*;
+import com.tabuyos.jpa.entity.examination.*;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -137,7 +137,7 @@ public class XMLParse {
     }
 
     public static void main(String[] args) throws Exception {
-        com.vip.vers.util.XMLParse dom4jUtil = new com.vip.vers.util.XMLParse();
+        XMLParse dom4jUtil = new XMLParse();
         long beginTime = System.currentTimeMillis();
         dom4jUtil.parserXml();
         long endTime = System.currentTimeMillis();

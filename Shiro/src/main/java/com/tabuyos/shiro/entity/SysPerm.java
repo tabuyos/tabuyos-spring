@@ -35,4 +35,73 @@ public class SysPerm {
 
     @Column(name = "is_disable", length = 1)
     private Integer isDisable;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPermName() {
+        return permName;
+    }
+
+    public void setPermName(String permName) {
+        this.permName = permName;
+    }
+
+    public String getPermDesc() {
+        return permDesc;
+    }
+
+    public void setPermDesc(String permDesc) {
+        this.permDesc = permDesc;
+    }
+
+    public String getPermValue() {
+        return permValue;
+    }
+
+    public void setPermValue(String permValue) {
+        this.permValue = permValue;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(Integer isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    @Override
+    public String toString() {
+        return "SysPerm{" +
+                "id='" + id + '\'' +
+                ", permName='" + permName + '\'' +
+                ", permDesc='" + permDesc + '\'' +
+                ", permValue='" + permValue + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", isDisable=" + isDisable +
+                '}';
+    }
 }

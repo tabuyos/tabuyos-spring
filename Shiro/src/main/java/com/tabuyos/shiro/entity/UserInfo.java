@@ -2,6 +2,7 @@ package com.tabuyos.shiro.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Set;
 
 /**
  * @Author Tabuyos
@@ -25,6 +26,18 @@ public class UserInfo {
 
     @Column(name = "salt")
     private String salt;
+
+    /**
+     * 用户所有角色值，用于shiro做角色权限的判断
+     */
+    @Transient
+    private Set<String> roles;
+
+    /**
+     * 用户所有权限值，用于shiro做资源权限的判断
+     */
+    @Transient
+    private Set<String> perms;
 
     public String getId() {
         return id;
@@ -58,6 +71,22 @@ public class UserInfo {
         this.salt = salt;
     }
 
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    public Set<String> getPerms() {
+        return perms;
+    }
+
+    public void setPerms(Set<String> perms) {
+        this.perms = perms;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -65,6 +94,8 @@ public class UserInfo {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
+                ", roles=" + roles +
+                ", perms=" + perms +
                 '}';
     }
 }

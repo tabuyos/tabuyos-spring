@@ -20,8 +20,12 @@ spring:
         dialect: com.tabuyos.shiro.config.MariaDBConfig
     show-sql: true
     open-in-view: true
-#  output:
+  main:
+    allow-bean-definition-overriding: true
 #    ansi:
 #      enabled: detect
 logging:
   config: classpath:log4j2.yml
+
+feign:
+  url: 127.0.0.1:8070

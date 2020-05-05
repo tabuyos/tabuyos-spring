@@ -16,14 +16,12 @@ repositories {
 dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
-            'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-log4j2',
-            'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.2.RELEASE',
 //            'org.springframework.data:spring-data-redis',
             'org.mariadb.jdbc:mariadb-java-client:2.6.0',
             'com.fasterxml.jackson.core:jackson-databind',
             'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml',
-            'org.apache.shiro:shiro-spring-boot-web-starter:1.5.2'
+            'org.apache.shiro:shiro-core:1.5.2'
     )
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -32,6 +30,5 @@ dependencies {
 configurations {
     all {
         implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-        implementation.exclude group: 'com.netflix.archaius', module: 'archaius-core'
     }
 }

@@ -1,14 +1,13 @@
 package com.tabuyos.shiro.controller;
 
 import com.tabuyos.shiro.dao.UserInfoRepository;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+//import org.apache.logging.log4j.Logger;
 
 /**
  * @Author Tabuyos
@@ -18,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  */
 @RestController
-@RequestMapping("/user")
-public class UserInfoController {
+@RequestMapping("/perm")
+public class PermInfoController {
 
     private final UserInfoRepository userInfoRepository;
 //    private static final Logger logger = LogManager.getLogger();
     Logger logger = LoggerFactory.getLogger("db");
 //    Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
-    public UserInfoController(UserInfoRepository userInfoRepository) {
+    public PermInfoController(UserInfoRepository userInfoRepository) {
         this.userInfoRepository = userInfoRepository;
     }
 

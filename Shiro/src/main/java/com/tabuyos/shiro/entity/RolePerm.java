@@ -11,7 +11,7 @@ import java.math.BigInteger;
  * @Description
  */
 @Entity
-@Table(name = "user_role")
+@Table(name = "role_perm")
 public class RolePerm {
     @Id
     @Column(name = "id", length = 36)
@@ -22,4 +22,37 @@ public class RolePerm {
 
     @Column(name = "role_id", length = 36)
     private String roleId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPermId() {
+        return permId;
+    }
+
+    public void setPermId(String permId) {
+        this.permId = permId;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    @Override
+    public String toString() {
+        return "RolePerm{" +
+                "id='" + id + '\'' +
+                ", permId='" + permId + '\'' +
+                ", roleId='" + roleId + '\'' +
+                '}';
+    }
 }

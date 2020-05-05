@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.vip.vers.entity.exam.*;
+import com.tabuyos.jpa.entity.exam.*;
 
 import java.io.File;
 import java.util.ArrayList;
