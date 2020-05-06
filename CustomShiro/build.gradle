@@ -1,0 +1,25 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'com.tabuyos.spring'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(
+            'org.springframework.boot:spring-boot-starter-web',
+            'com.fasterxml.jackson.core:jackson-databind',
+            'org.apache.shiro:shiro-spring-boot-web-starter:1.5.2',
+            'org.crazycake:shiro-redis:3.2.3',
+            'com.alibaba:fastjson:1.2.9'
+    )
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}

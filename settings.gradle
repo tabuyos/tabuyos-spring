@@ -8,4 +8,5 @@ include 'Data-JPA'
 include 'Shiro'
 include 'Log4j2'
 include 'CAS'
+include 'CustomShiro'
 
