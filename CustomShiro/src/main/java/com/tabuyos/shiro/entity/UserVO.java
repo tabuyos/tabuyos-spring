@@ -1,5 +1,6 @@
 package com.tabuyos.shiro.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @date 2018-10-24 23:39:38
  * 版权所有：@撸码识途 版权所有(C) 2018
  */
-public class UserVO {
+public class UserVO implements Serializable {
     private String id;
     private String account;
     private String name;

@@ -1,5 +1,6 @@
 package com.tabuyos.shiro.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @Email tabuyos@outlook.com
  * @Description
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     private String userName;
 
