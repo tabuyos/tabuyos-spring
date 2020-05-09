@@ -11,13 +11,6 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
-}
-
 dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
@@ -27,8 +20,6 @@ dependencies {
             'org.apache.commons:commons-lang3:3.10',
             'commons-io:commons-io:2.6'
     )
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

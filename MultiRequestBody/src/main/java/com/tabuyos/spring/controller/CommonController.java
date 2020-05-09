@@ -4,7 +4,12 @@ import com.tabuyos.spring.annotation.MultiRequestBody;
 import com.tabuyos.spring.entity.Dog;
 import com.tabuyos.spring.entity.User;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author Tabuyos
@@ -17,9 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommonController {
 
     @PostMapping("/getUserAndDog")
-    public String userAndDog(@MultiRequestBody User user, @MultiRequestBody Dog dog) {
-        System.out.println(user);
-        System.out.println(dog);
-        return "ok";
+    public Object userAndDog(@RequestBody List<String> list) {
+//        System.out.println(user);
+//        System.out.println(dog);
+//        System.out.println(tab);
+        System.out.println(Arrays.toString(list.toArray()));
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
     }
 }

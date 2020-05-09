@@ -1,8 +1,8 @@
 package com.tabuyos.spring.resolver;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tabuyos.spring.annotation.MultiRequestBody;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +16,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -27,7 +29,14 @@ import java.util.Set;
  * @Description
  */
 public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentResolver {
-    private static final String JSONBODY_ATTRIBUTE = "JSON_REQUEST_BODY";
+
+    private ObjectMapper objectMapper;
+    private static final String JSON_REQUEST_BODY = "JSON_REQUEST_BODY";
+
+    // 使用setter进行注入
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     /**
      * 设置支持的方法参数类型
@@ -42,19 +51,16 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
     }
 
     /**
-     * 参数解析，利用fastjson
-     * 注意：非基本类型返回null会报空指针异常，要通过反射或者JSON工具类创建一个空对象
+     * 参数解析，使用Jackson
+     * 注意：非基本类型返回null会报空指针异常，需要创建一个空对象来接收
      */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   @NonNull NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-//        if (webRequest == null) {
-//            throw new NullPointerException("webRequest must be not null!");
-//        }
         String jsonBody = getRequestBody(webRequest);
 
-        JSONObject jsonObject = JSON.parseObject(jsonBody);
+        Map<?, ?> requestBodyMap = objectMapper.readValue(jsonBody, HashMap.class);
         // 根据@MultiRequestBody注解value作为json解析的key
         MultiRequestBody parameterAnnotation = parameter.getParameterAnnotation(MultiRequestBody.class);
         //注解的value是JSON的key
@@ -65,7 +71,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
         Object value;
         // 如果@MultiRequestBody注解没有设置value，则取参数名FrameworkServlet作为json解析的key
         if (StringUtils.isNotEmpty(key)) {
-            value = jsonObject.get(key);
+            value = requestBodyMap.get(key);
             // 如果设置了value但是解析不到，报错
             if (value == null && parameterAnnotation.required()) {
                 throw new IllegalArgumentException(String.format("required param %s is not present", key));
@@ -73,7 +79,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
         } else {
             // 注解为设置value则用参数名当做json的key
             key = parameter.getParameterName();
-            value = jsonObject.get(key);
+            value = requestBodyMap.get(key);
         }
 
         // 获取的注解后的类型 Long
@@ -92,7 +98,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
                 return value.toString();
             }
             // 其他复杂对象
-            return JSON.parseObject(value.toString(), parameterType);
+            return objectMapper.readValue(value.toString(), parameterType);
         }
 
         // 解析不到则将整个json串解析为当前参数类型
@@ -116,8 +122,12 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
         // 非基本类型，允许解析，将外层属性解析
         Object result;
         try {
-            result = JSON.parseObject(jsonObject.toString(), parameterType);
-        } catch (JSONException jsonException) {
+            result = objectMapper.readValue(jsonBody.toString(), parameterType);
+        } catch (JsonParseException jsonParseException) {
+            // hipnoteFixme 异常处理返回null是否合理？
+            result = null;
+        } catch (JsonProcessingException jsonProcessingException) {
+            jsonProcessingException.printStackTrace();
             // hipnoteFixme 异常处理返回null是否合理？
             result = null;
         }
@@ -229,7 +239,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
         HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
 
         // 有就直接获取
-        String jsonBody = (String) webRequest.getAttribute(JSONBODY_ATTRIBUTE, NativeWebRequest.SCOPE_REQUEST);
+        String jsonBody = (String) webRequest.getAttribute(JSON_REQUEST_BODY, NativeWebRequest.SCOPE_REQUEST);
         // 没有就从请求中读取
         if (jsonBody == null) {
             try {
@@ -237,7 +247,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
                     throw new NullPointerException("servletRequest must be not null!");
                 }
                 jsonBody = IOUtils.toString(servletRequest.getReader());
-                webRequest.setAttribute(JSONBODY_ATTRIBUTE, jsonBody, NativeWebRequest.SCOPE_REQUEST);
+                webRequest.setAttribute(JSON_REQUEST_BODY, jsonBody, NativeWebRequest.SCOPE_REQUEST);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

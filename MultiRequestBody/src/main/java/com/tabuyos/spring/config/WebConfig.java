@@ -1,5 +1,6 @@
 package com.tabuyos.spring.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tabuyos.spring.resolver.MultiRequestBodyArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +19,18 @@ import java.util.List;
  * @Email tabuyos@outlook.com
  * @Description
  */
-@Configuration
+//@Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    private final ObjectMapper objectMapper;
+
+    public WebConfig(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new MultiRequestBodyArgumentResolver());
+        argumentResolvers.add(multiRequestBodyArgumentResolver());
     }
 
     @Bean
@@ -30,9 +38,15 @@ public class WebConfig implements WebMvcConfigurer {
         return new StringHttpMessageConverter(StandardCharsets.UTF_8);
     }
 
+    @Bean
+    public MultiRequestBodyArgumentResolver multiRequestBodyArgumentResolver() {
+        MultiRequestBodyArgumentResolver multiRequestBodyArgumentResolver = new MultiRequestBodyArgumentResolver();
+        multiRequestBodyArgumentResolver.setObjectMapper(objectMapper);
+        return multiRequestBodyArgumentResolver;
+    }
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        super.configureMessageConverters(converters);
         converters.add(responseBodyConverter());
     }
 }
