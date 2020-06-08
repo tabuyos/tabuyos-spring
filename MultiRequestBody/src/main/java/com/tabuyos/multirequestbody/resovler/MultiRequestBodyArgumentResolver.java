@@ -71,7 +71,6 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
         }
         Map<String, Object> map;
         String contentType = httpServletRequest.getHeader(CONTENT_TYPE);
-        System.out.println(contentType);
         if (contentType.contains(FORM_DATA)) {
             map = getRequestParameter(httpServletRequest);
         } else if (contentType.contains(X_WWW_FORM_URLENCODED)) {
