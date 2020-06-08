@@ -1,15 +1,13 @@
-package com.tabuyos.handle.controller;
+package com.tabuyos.multirequestbody.controller;
 
-import com.tabuyos.handle.annotation.AutoHandle;
-import com.tabuyos.handle.entity.Aaron;
-import com.tabuyos.handle.entity.Tabuyos;
+import com.tabuyos.multirequestbody.annotation.MultiRequestBody;
+import com.tabuyos.multirequestbody.entity.Aaron;
+import com.tabuyos.multirequestbody.entity.Tabuyos;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Enumeration;
 
 /**
@@ -72,8 +70,8 @@ public class TabuyosController {
     }
 
     @GetMapping("/index")
-    public Tabuyos index(@AutoHandle Tabuyos tabuyos, @AutoHandle Aaron aaron, @AutoHandle int age,
-                         @AutoHandle(required = false, parseAllFields = false, defaultValue = "24") int nian) {
+    public Tabuyos index(@MultiRequestBody Tabuyos tabuyos, @MultiRequestBody Aaron aaron, @MultiRequestBody int age,
+                         @MultiRequestBody int nian) {
         System.out.println(tabuyos);
         System.out.println(aaron);
         System.out.println(nian);

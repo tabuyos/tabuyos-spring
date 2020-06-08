@@ -1,6 +1,7 @@
-package com.tabuyos.handle.entity;
+package com.tabuyos.multirequestbody.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author Tabuyos
@@ -11,16 +12,16 @@ import java.util.Date;
  */
 public class Aaron {
 
-    private String username;
+    private List<String> username;
     private int years;
     private String sex;
     private Date birthday;
 
-    public String getUsername() {
+    public List<String> getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(List<String> username) {
         this.username = username;
     }
 

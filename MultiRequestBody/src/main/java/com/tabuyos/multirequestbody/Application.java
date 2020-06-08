@@ -1,4 +1,4 @@
-package com.tabuyos.handle;
+package com.tabuyos.multirequestbody;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

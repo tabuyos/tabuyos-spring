@@ -1,11 +1,13 @@
-package com.tabuyos.handle.resovler;
+package com.tabuyos.multirequestbody.resovler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tabuyos.handle.annotation.AutoHandle;
+import com.tabuyos.multirequestbody.annotation.MultiRequestBody;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -14,6 +16,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -23,10 +27,14 @@ import java.util.*;
  * @Email tabuyos@outlook.com
  * @Description Auto handle argument of method in controller, capture multi-argument for the class.
  */
-public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver {
+public class MultiRequestBodyResolver implements HandlerMethodArgumentResolver {
 
     private ObjectMapper objectMapper;
+    private static final String JSON = "application/json";
+    private static final String CONTENT_TYPE = "content-type";
+    private static final String FORM_DATA = "multipart/form-data";
     private static final String JSON_REQUEST_BODY = "JSON_REQUEST_BODY";
+    private static final String X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
 
     public void setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -41,7 +49,7 @@ public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver
      */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(AutoHandle.class);
+        return parameter.hasParameterAnnotation(MultiRequestBody.class);
     }
 
     /**
@@ -61,17 +69,28 @@ public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver
         if (httpServletRequest == null) {
             return null;
         }
-        Map<String, Object> map = getRequestParameter(httpServletRequest);
+        Map<String, Object> map;
+        String contentType = httpServletRequest.getHeader(CONTENT_TYPE);
+        System.out.println(contentType);
+        if (contentType.contains(FORM_DATA)) {
+            map = getRequestParameter(httpServletRequest);
+        } else if (contentType.contains(X_WWW_FORM_URLENCODED)) {
+            map = getRequestBodyFromUrlEncoded(httpServletRequest);
+        } else if (contentType.contains(JSON)) {
+            map = getRequestBodyFromJson(httpServletRequest);
+        } else {
+            return null;
+        }
         String parameterString = objectMapper.writeValueAsString(map);
-        AutoHandle autoHandle = parameter.getParameterAnnotation(AutoHandle.class);
-        if (autoHandle == null) {
+        MultiRequestBody multiRequestBody = parameter.getParameterAnnotation(MultiRequestBody.class);
+        if (multiRequestBody == null) {
             throw new NullPointerException("Auto handle(annotation: AutoHandle) must be not null!");
         }
-        String key = autoHandle.value();
+        String key = multiRequestBody.value();
         Object value;
         if (StringUtils.isNotEmpty(key)) {
             value = map.get(key);
-            if (value == null && autoHandle.required()) {
+            if (value == null && multiRequestBody.required()) {
                 throw new IllegalArgumentException(String.format("Required parameter %s is not present!", key));
             }
         } else {
@@ -81,32 +100,32 @@ public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver
 
         Class<?> type = parameter.getParameterType();
         if (value != null) {
-            if (type.isPrimitive()) {
-                return parsePrimitive(type.getName(), value);
-            } else if (isBasicType(type)) {
-                return parseBasicTypeWrapper(type, value);
-            } else if (type == String.class) {
-                return value.toString();
-            } else {
-                return objectMapper.readValue(parameterString, type);
-            }
+            return getValue(parameterString, value, type);
         }
 
         if (isBasicType(type) || type.isPrimitive()) {
-            if (autoHandle.required()) {
-                throw new IllegalArgumentException(String.format("Required parameter %s is not present!", key));
+            if (ValueConstants.DEFAULT_NONE.equals(multiRequestBody.defaultValue())) {
+                if (multiRequestBody.required()) {
+                    throw new IllegalArgumentException(String.format("Required parameter %s is not present!", key));
+                } else {
+                    return null;
+                }
             } else {
-                return null;
+                return getValue(parameterString, multiRequestBody.defaultValue(), type);
             }
         }
 
-        if (!autoHandle.parseAllFields()) {
-            if (autoHandle.required()) {
+        if (!multiRequestBody.parseAllFields()) {
+            if (multiRequestBody.required()) {
                 throw new IllegalArgumentException(String.format("Required parameter %s is not present!", key));
             }
             return null;
         }
 
+        return getResult(parameterString, multiRequestBody, key, type);
+    }
+
+    private Object getResult(String parameterString, MultiRequestBody multiRequestBody, String key, Class<?> type) throws IllegalAccessException {
         Object result;
         try {
             result = objectMapper.readValue(parameterString, type);
@@ -115,7 +134,7 @@ public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver
             result = null;
         }
 
-        if (autoHandle.required()) {
+        if (multiRequestBody.required()) {
             boolean haveValue = false;
             Field[] fields = type.getDeclaredFields();
             for (Field field : fields) {
@@ -133,45 +152,62 @@ public class AutoHandleArgumentResolver implements HandlerMethodArgumentResolver
         return result;
     }
 
-    private Object getRequestBody(HttpServletRequest httpServletRequest) {
-
-        System.out.println("=========================parameterNames=========================");
-        Enumeration<String> parameterNames = httpServletRequest.getParameterNames();
-        while (parameterNames.hasMoreElements()) {
-            String key = parameterNames.nextElement();
-            System.out.println(key + " => " + Arrays.toString(httpServletRequest.getParameterValues(key)));
+    private Object getValue(String parameterString, Object value, Class<?> type) throws JsonProcessingException {
+        if (type.isPrimitive()) {
+            return parsePrimitive(type.getName(), value);
+        } else if (isBasicType(type)) {
+            return parseBasicTypeWrapper(type, value);
+        } else if (type == String.class) {
+            return value.toString();
+        } else {
+            return objectMapper.readValue(parameterString, type);
         }
+    }
 
-        System.out.println("=========================headerNames=========================");
-        Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = headerNames.nextElement();
-            System.out.println(key + " => " + httpServletRequest.getHeader(key));
+    private Map<String, Object> getRequestBodyFromUrlEncoded(HttpServletRequest httpServletRequest) throws IOException {
+        Map<String, List<String>> pendingMap = new HashMap<>(7);
+        Map<String, Object> map = new HashMap<>(7);
+        Object pendingUrlencoded = httpServletRequest.getAttribute(JSON_REQUEST_BODY);
+        if (pendingUrlencoded == null) {
+            pendingUrlencoded = IOUtils.toString(httpServletRequest.getReader());
+            httpServletRequest.setAttribute(JSON_REQUEST_BODY, pendingUrlencoded);
         }
-
-        System.out.println("=========================attributeNames=========================");
-        Enumeration<String> attributeNames = httpServletRequest.getAttributeNames();
-        while (attributeNames.hasMoreElements()) {
-            String key = attributeNames.nextElement();
-            System.out.println(key + " => " + httpServletRequest.getAttribute(key));
+        String urlencoded = pendingUrlencoded.toString();
+        String[] split = urlencoded.trim().split("&");
+        for (String segment : split) {
+            List<String> list = new ArrayList<>();
+            String[] keyValuePair = segment.split("=");
+            String key = keyValuePair[0];
+            String value = URLDecoder.decode(keyValuePair[1], StandardCharsets.UTF_8.name());
+            if (pendingMap.containsKey(key) && pendingMap.get(key) != null) {
+                list = pendingMap.get(key);
+            }
+            list.add(value);
+            pendingMap.put(key, list);
         }
-
-        System.out.println("=========================parameterMap=========================");
-        Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
-        for (String key : parameterMap.keySet()) {
-            System.out.println(key + " => " + Arrays.toString(parameterMap.get(key)));
-        }
-
-        Object jsonBody = httpServletRequest.getAttribute(JSON_REQUEST_BODY);
-        if (jsonBody == null) {
-            try {
-                jsonBody = IOUtils.toString(httpServletRequest.getReader());
-                httpServletRequest.setAttribute(JSON_REQUEST_BODY, jsonBody);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        for (String key : pendingMap.keySet()) {
+            List<String> list = pendingMap.get(key);
+            if (list.size() > 1) {
+                map.put(key, list);
+            } else {
+                map.put(key, list.get(0));
             }
         }
-        return jsonBody;
+        return map;
+    }
+
+    private Map<String, Object> getRequestBodyFromJson(HttpServletRequest httpServletRequest) throws IOException {
+        Map<String, Object> map = new HashMap<>(7);
+        Object pendingBody = httpServletRequest.getAttribute(JSON_REQUEST_BODY);
+        if (pendingBody == null) {
+            pendingBody = IOUtils.toString(httpServletRequest.getReader());
+            httpServletRequest.setAttribute(JSON_REQUEST_BODY, pendingBody);
+        }
+        Map<?, ?> pendingMap = objectMapper.readValue(pendingBody.toString(), Map.class);
+        for (Object key : pendingMap.keySet()) {
+            map.put(key.toString(), pendingMap.get(key));
+        }
+        return map;
     }
 
     private Map<String, Object> getRequestParameter(HttpServletRequest httpServletRequest) {

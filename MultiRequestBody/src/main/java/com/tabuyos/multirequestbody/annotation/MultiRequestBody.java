@@ -1,4 +1,4 @@
-package com.tabuyos.handle.annotation;
+package com.tabuyos.multirequestbody.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.ValueConstants;
@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AutoHandle {
+public @interface MultiRequestBody {
 
     /**
      * Alias for {@link #name}.

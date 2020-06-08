@@ -1,4 +1,4 @@
-package com.tabuyos.handle.config;
+package com.tabuyos.multirequestbody.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  * @Description
  */
 @Configuration
-public class AutoHandleRequestConfig {
+public class MultiRequestBodyConfig {
 
     @Bean
     public StringHttpMessageConverter stringHttpMessageConverter() {

@@ -14,9 +14,8 @@ repositories {
 dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
-//            'com.fasterxml.jackson.core:jackson-databind',
-//            'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml',
-            'com.alibaba:fastjson:1.2.47',
+            'com.fasterxml.jackson.core:jackson-databind',
+            'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml',
             'org.apache.commons:commons-lang3:3.10',
             'commons-io:commons-io:2.6'
     )

@@ -9,7 +9,6 @@ include 'Shiro'
 include 'Log4j2'
 include 'CAS'
 include 'CustomShiro'
-include 'MultiRequestBody'
 include 'tabuyos-shiro'
-include 'AutoHandleRequest'
+include 'MultiRequestBody'
 
