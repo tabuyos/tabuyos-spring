@@ -27,7 +27,7 @@ import java.util.*;
  * @Email tabuyos@outlook.com
  * @Description Auto handle argument of method in controller, capture multi-argument for the class.
  */
-public class MultiRequestBodyResolver implements HandlerMethodArgumentResolver {
+public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentResolver {
 
     private ObjectMapper objectMapper;
     private static final String JSON = "application/json";

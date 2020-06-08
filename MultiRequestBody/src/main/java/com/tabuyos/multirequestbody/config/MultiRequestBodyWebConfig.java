@@ -3,7 +3,7 @@ package com.tabuyos.multirequestbody.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tabuyos.multirequestbody.resovler.MultiRequestBodyResolver;
+import com.tabuyos.multirequestbody.resovler.MultiRequestBodyArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -37,8 +37,8 @@ public class MultiRequestBodyWebConfig implements WebMvcConfigurer {
         argumentResolvers.add(autoHandleArgumentResolver());
     }
 
-    private MultiRequestBodyResolver autoHandleArgumentResolver() {
-        MultiRequestBodyResolver resolver = new MultiRequestBodyResolver();
+    private MultiRequestBodyArgumentResolver autoHandleArgumentResolver() {
+        MultiRequestBodyArgumentResolver resolver = new MultiRequestBodyArgumentResolver();
         resolver.setObjectMapper(objectMapper);
         return resolver;
     }
