@@ -102,7 +102,7 @@ public class MultiRequestBodyArgumentResolver implements HandlerMethodArgumentRe
             return getValue(parameterString, value, type);
         }
 
-        if (isBasicType(type) || type.isPrimitive()) {
+        if (isBasicType(type) || type.isPrimitive() || type.isAssignableFrom(String.class)) {
             if (ValueConstants.DEFAULT_NONE.equals(multiRequestBody.defaultValue())) {
                 if (multiRequestBody.required()) {
                     throw new IllegalArgumentException(String.format("Required parameter %s is not present!", key));

@@ -71,7 +71,7 @@ public class TabuyosController {
 
     @GetMapping("/index")
     public Tabuyos index(@MultiRequestBody Tabuyos tabuyos, @MultiRequestBody Aaron aaron, @MultiRequestBody int age,
-                         @MultiRequestBody int nian) {
+                         @MultiRequestBody(required = false, defaultValue = "2333afdsa") String nian) {
         System.out.println(tabuyos);
         System.out.println(aaron);
         System.out.println(nian);
