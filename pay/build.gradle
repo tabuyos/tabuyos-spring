@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group 'com.tabuyos.spring'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    implementation(
+            'org.springframework.boot:spring-boot-starter-web',
+            'com.alipay.sdk:alipay-sdk-java:4.10.29.ALL',
+            'com.alipay.sdk:alipay-easysdk:2.0.0',
+            'com.google.guava:guava:29.0-jre'
+
+    )
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+compileJava.inputs.files(processResources)
