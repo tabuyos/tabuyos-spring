@@ -12,4 +12,5 @@ include 'CustomShiro'
 include 'tabuyos-shiro'
 include 'MultiRequestBody'
 include 'pay'
+include 'tabuyos-okhttp'
 

@@ -2,7 +2,6 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    id 'application'
 }
 
 group 'com.tabuyos.spring'
@@ -22,10 +21,9 @@ configurations {
 dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
-            'com.alipay.sdk:alipay-sdk-java:4.10.29.ALL',
-            'com.alipay.sdk:alipay-easysdk:2.0.0',
-            'com.google.guava:guava:29.0-jre'
-
+            'com.squareup.okhttp3:okhttp:4.7.2',
+            'com.google.guava:guava:29.0-jre',
+            'com.fasterxml.jackson.module:jackson-module-kotlin'
     )
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"

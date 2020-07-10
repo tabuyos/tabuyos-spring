@@ -1,0 +1,11 @@
+server:
+  port: 8229
+  servlet:
+    context-path: /
+spring:
+  profiles: dev
+  application:
+    name: okhttp
+  devtools:
+    livereload:
+      port: 35730
