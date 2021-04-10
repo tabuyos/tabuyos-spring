@@ -1,0 +1,56 @@
+Configuration:
+  status: warn
+  name: YAMLConfigTest
+  properties:
+    property:
+      - name: filename
+        value: "target/test-yaml.log"
+      - name: LOG_EXCEPTION_CONVERSION_WORD
+        value: "%xwEx"
+      - name: LOG_LEVEL_PATTERN
+        value: "%5p"
+      - name: LOG_DATEFORMAT_PATTERN
+        value: "yyyy-MM-dd HH:mm:ss.SSS"
+      - name: FILE_LOG_PATTERN
+        value: "%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+      - name: CONSOLE_LOG_PATTERN
+        value: "%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+  thresholdFilter:
+    level: debug
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+#        Pattern: "%highlight{[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n}{FATAL=red, ERROR=magenta, WARN=yellow, INFO=green, DEBUG=blue, TRACE=cyan}"
+        Pattern: ${sys:CONSOLE_LOG_PATTERN}
+    File:
+      name: File
+      fileName: ${filename}
+      append: true
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: error
+
+  Loggers:
+    logger:
+      - name: org.apache.logging.log4j.test1
+        level: debug
+        additivity: false
+        ThreadContextMapFilter:
+          KeyValuePair:
+            key: test
+            value: 123
+        AppenderRef:
+          ref: STDOUT
+      - name: com.tabuyos.shiro.controller
+        level: debug
+        additivity: false
+        AppenderRef:
+          ref: File
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: STDOUT
+        - ref: File

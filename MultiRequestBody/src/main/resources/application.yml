@@ -1,0 +1,15 @@
+server:
+  port: 8228
+spring:
+  jackson:
+    deserialization:
+      accept_empty_string_as_null_object: true
+      accept_single_value_as_array: true
+      accept_empty_array_as_null_object: true
+      fail_on_numbers_for_enums: false
+      fail_on_unknown_properties: false
+    default-property-inclusion: custom
+    mapper:
+      accept_case_insensitive_properties: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

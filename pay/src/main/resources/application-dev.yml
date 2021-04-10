@@ -1,0 +1,24 @@
+server:
+  port: 8228
+  servlet:
+    context-path: /
+spring:
+  profiles: dev
+  application:
+    name: pay
+  devtools:
+    livereload:
+      port: 35730
+pay:
+  alipay:
+    protocol: https
+    gateway-url: https://openapi.alipay.com/gateway.do
+    app-id: 2021001168660744
+    app-private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3/OIF4ac/yV9yRWzDeLgocGuQIQDMNdnkl826aRnWTfZ9lukWJHv2TqSn70hPnXx6KaPa9Pb/qPXB2qz8YSiwsuhhX90xxBI9tmaXCqx4yG586Rrx5nKhHDGD3a8DugZz52AC7Lbz1k60tRBBGM6VNRB1JkFdxBFr/C1smM5B+SN6MDm2+R2LzlyUGVf2CYpTJjwl68p3LZr+oPMsYP4TF2YL5TyEG1C9fCsEIZu3p6Bmwpah+2DcEwEmpqp93S7Ey4NRzl6U+W2z9pm4GHpCaAdTmf8qYi5rXwez/kbL9n5pNS2sosqsjmFfXUKvmxXJ3nGEqPb7KGkZyD7DutE1AgMBAAECggEBAK+hVqEGpwDc2Z/bZdeyhRkVN5h96KUHQthTkK9BZMiN454/UIEykqKsr8EfSYe2bfyvgxqgfKfQQcirVjYVCSKjpfBN8nhvEnqWg5frOHiT2+ShIHeJ5CKnJx0ZoNeN3FsHoz8nd/2LtdYKgVmitJD59pvdyMgZQggy0am4tCuEaMt5NuxvSLq1JggpYVGFtQSiRMwiJ8RdmmGmsT5yXSNEziqqgw1GZO0WXkQ4OgBXRDJ90jKiR4YZC5uvwaYOm/90FP/4s4JaB0/pwWysiXA8ueQmzMMlXXcEQfgqbUoAO3Dv1t+T6xEQ1yJZwciO5P5tyNvUaLLdKcSzzag5tAECgYEA5N69dp4HQ6ZjQckVgFhxBJqOZ/pifLcfxipsoSycewMFTHDhnF0aE4P65I4a3oo6PwmHj0OAhoYwHDGaoptJCNy9BLqmgrAc7DN7vrzXP5JhXbgt8f8cFdpz8G/XJVHsVWlvcp+S2Gn4HTpaXyZghXQqY10MU8UYMoGLpYvyf+kCgYEAzcwm7zQGdD2vUxxmiXYm9xQHfMUbnsd++V2xjv/Au4sFdTRh2c1mH9AcywA2rC9SH/tnyxEBwF+0d4g/5Xzl2aNf/Ya7OYpz+J9QOhZvO1sEQ5irXDhLVNDxqrn0K5tgK2q1l6HncLvcKG+2ZjYCdp1ik648X5z2j8LvZWEho20CgYAY04SPymKVVwYrS6m2a2GPE0jhRIrMZnze3Rk9fn5W5aP8f74pXPwII+fiRPvrKelZjyoSQ0s8zG+Jj2PrwZZxjKhATBLl2D667Ha+4PMkZTeEmAb72iVsxW6QJUGcPb+6IB7Du0WNjiko2nyVF6+eqlQyxRQiPh361IyWX5DliQKBgQCgYMXCyjdxZRT53vslivdIu8ot+OnSbkPMj7Cs8TDAttGVCjJrav94MVYO+Wah/uqwU9sKTIGh6rOYJ40sCY6Schh/Wf0UFYrVKUp7Sjp69i43g4Wfg5tpSL/cvbfEN/zVOP61YY4cs7oZpR1vQA3hZDuLPVB9brRTSqYHyo9NbQKBgGA6kRn3VsRPze2IgMD+wsl20NnCpO7pv5qnWiIgxYh1eVZIt+DjmFDWMXTW51Ud5HCYvIqjQ3epO0KFPewQ42GHk7r6se17hHLVRMo0ouWG3ROdfgjmlK7H2XgLQ5qrT4n2sHuN25uc0BSCg0L8n/KhWPGFmo2gr4j5+9s6IZ6v
+    format: json
+    charset: UTF-8
+    timeout: 30m
+    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgUq2d+uz0/GokOiTAW/+DM/NCAYGPs+KAYxqoNFnUIsulqiz8Lj6oEKTe4fLsoCeCb6ZpJ+U/GQEADjeBufSJAM8IJTPCiPMozAgjwe/EiHE7DxGotNqChsjAzoYt4D3SsQG94xjE03dDTQ7DQygTOs4zp3ME+sQMNEcE7EaN5Ixv/0g1nHdu9o4Nbs29kz1rC8xwkArwhXQWyR3354iPYEkLdTepZBOGCf00RjVVxC1GP3FgCehnDgWlCnu15UDphBUoNeq6xtUAVvbfoJdYc/S0uXslPEE0zYmTt0WEF3vl6Ix7w0nR2cqwrtSD14KMGukjKO3CnHsESJDr9/ujQIDAQAB
+    sign-type: RSA2
+    product-code: QUICK_MSECURITY_PAY
+    notify-url: https://publishing-api.cqvip.com/api/pay/alipayNotify

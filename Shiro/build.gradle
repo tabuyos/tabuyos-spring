@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'com.tabuyos.spring'
+version '0.1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-log4j2',
+            'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.2.RELEASE',
+//            'org.springframework.data:spring-data-redis',
+            'org.mariadb.jdbc:mariadb-java-client:2.6.0',
+            'com.fasterxml.jackson.core:jackson-databind',
+            'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml',
+            'org.apache.shiro:shiro-spring-boot-web-starter:1.5.2'
+    )
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+configurations {
+    all {
+        implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        implementation.exclude group: 'com.netflix.archaius', module: 'archaius-core'
+    }
+}

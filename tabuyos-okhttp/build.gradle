@@ -1,0 +1,35 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group 'com.tabuyos.spring'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    implementation(
+            'org.springframework.boot:spring-boot-starter-web',
+            'com.squareup.okhttp3:okhttp:4.7.2',
+            'com.google.guava:guava:29.0-jre',
+            'com.fasterxml.jackson.module:jackson-module-kotlin'
+    )
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+compileJava.inputs.files(processResources)
